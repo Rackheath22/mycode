@@ -1,0 +1,480 @@
+#!/usr/bin/env python3
+ 
+#DEFINE WORD LISTS
+def get_word():
+    global word_list, bigger_word_list
+    word_list = ["aback", "abase", "abate", "abbey", "abbot", "abhor", "abide", "abode", "abort", "about", "above"]
+    rand_answer = rand.choice(word_list)
+    bigger_word_list = ["aahed", "aalii", "aargh", "aarti", "abaca", "abaci", "aback", "abacs", "abaft", "abaka"]
+    return rand_answer
+ 
+ 
+#GET SYSTEM TIME, DRAW TO SCREEN
+def game_time():
+    global seconds_counter, seconds, drawing_board
+    if drawing_board:
+        current_time = time.strftime("%H:%M", time.localtime())
+        epoch_time = int(time.time())
+        clock_image = myFont.render(current_time, True, (255, 255, 255))
+        pygame.draw.rect(screen, black, pygame.Rect(10, 10, 40, 20))
+        screen.blit(clock_image, (18, 13))
+        if seconds_counter:
+            if seconds <= epoch_time - 5:
+                screen.blit(bgImage, (0, 0))
+                seconds_counter = False
+ 
+ 
+#DRAW BACKGROUND COLORS, KEYBOARD COLORS, LETTER TILES
+def print_pieces():
+    x_draw = 0
+    y_draw = 0
+    if drawing_board:
+        for y_var in bg_coord_y:
+            for x_var in bg_coord_x:
+                pygame.draw.rect(screen, bg_array[x_draw][y_draw], pygame.Rect(x_var, y_var, 56, 56))
+                letters = pygame.image.load("files\\" + guess_array[x_draw][y_draw] + ".png").convert()
+                screen.blit(letters, (x_var + 5, y_var + 5))
+                y_draw += 1
+            y_draw = 0
+            x_draw += 1
+        for key in kb_click:
+            if key != '<' and key != '>' and kb_click[key]["color"] != 'black':
+                pygame.draw.rect(screen, kb_click[key]["color"], pygame.Rect((min(kb_click[key]["x"]), (min(kb_click[key]["y"])),((max(kb_click[key]["x"])) - (min(kb_click[key]["x"]))), ((max(kb_click[key]["y"])) - (min(kb_click[key]["y"]))))), width=4,border_radius=7)
+ 
+#LISTEN FOR KEYBOARD INPUT
+def keyboard_input():
+    global mouse, kb_click
+    mouse = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        key_sound.play()
+        for key in kb_click:
+            if mouse[0] in kb_click[key]["x"]:
+                if mouse[1] in kb_click[key]["y"]:
+                    return key
+ 
+ 
+def help_box_check():
+    global drawing_board
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if mouse[0] in range(3, 55) and mouse[1] in range(714, 751):
+            drawing_board = False
+            help_box = pygame.image.load("files\\help.png").convert()
+            screen.blit(help_box, (10, 88))
+            kb_click['>']["x"] = []
+        if mouse[0] in range(315, 349) and mouse[1] in range(89, 124) and drawing_board == False:
+            drawing_board = True
+            kb_click['>']["x"] = range(305, 356)
+            screen.blit(bgImage, (0, 0))
+ 
+ 
+ 
+# noinspection PyTypeChecker
+def check_answer():
+    test_counter = 0
+    for letter in guess_array[current_row]:
+        bg_array[current_row][test_counter] = gray
+        kb_click[letter]["color"] = gray
+        if letter in answer:
+            if kb_click[letter]["color"] != green:
+                kb_click[letter]["color"] = yellow
+            bg_array[current_row][test_counter] = yellow
+        if answer[test_counter] == guess_array[current_row][test_counter]:
+            if letter in answer:
+                kb_click[letter]["color"] = green
+            bg_array[current_row][test_counter] = green
+        test_counter += 1
+ 
+ 
+def not_in_wordlist():
+    global seconds_counter, seconds
+    error_wordlist = pygame.image.load("files\\notinwl.png").convert()
+    screen.blit(error_wordlist, (10, 84))
+    seconds_counter = True
+    seconds = int(time.time())
+ 
+ 
+#EXECUTE ON GAME WIN
+def win_check():
+    global drawing_board, game_open, win_flag
+    if win_flag:
+        drawing_board = False
+        kb_click['>']["x"] = []
+        winscreen = pygame.image.load("files\\win.png").convert()
+        screen.blit(winscreen, (10, 88))
+        x=0
+        for i in answer:
+            pygame.draw.rect(screen, green, pygame.Rect(bg_coord_x[x], bg_coord_y[3], 56, 56))
+            letters = pygame.image.load("files\\" + i + ".png").convert()
+            screen.blit(letters, (bg_coord_x[x]+5, bg_coord_y[3]+5))
+            x+=1
+ 
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if mouse[0] in range(80, 290) and mouse[1] in range(450, 520):
+                new_game_init()
+            if mouse[0] in range(315, 349) and mouse[1] in range(89, 124) and drawing_board == False:
+                game_open = False
+ 
+ 
+#EXECUTE ON GAME LOSE
+def lose_check():
+    global drawing_board, game_open, lose_flag
+    if lose_flag:
+        drawing_board = False
+        kb_click['>']["x"] = []
+        losescreen = pygame.image.load("files\\lose.png").convert()
+        screen.blit(losescreen, (10, 88))
+        x=0
+        for i in answer:
+            pygame.draw.rect(screen, kb_click[i]["color"], pygame.Rect(bg_coord_x[x], bg_coord_y[3], 56, 56))
+            letters = pygame.image.load("files\\" + i + ".png").convert()
+            screen.blit(letters, (bg_coord_x[x]+5, bg_coord_y[3]+5))
+            x+=1
+ 
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if mouse[0] in range(80, 290) and mouse[1] in range(450, 520):
+                new_game_init()
+            if mouse[0] in range(315, 349) and mouse[1] in range(89, 124) and drawing_board == False:
+                game_open = False
+ 
+#RESET ALL VARIABLES
+def new_game_init():
+    global current_letter, current_row, answer, game_open, seconds_counter, drawing_board, win_flag, lose_flag, guess_array, bg_array, kb_click
+    current_letter, current_row = 0, 0
+    answer = list(get_word())
+    game_open, seconds_counter, drawing_board, win_flag, lose_flag = True, False, True, False, False
+    guess_array = [['1', '1', '1', '1', '1'],
+                   ['1', '1', '1', '1', '1'],
+                   ['1', '1', '1', '1', '1'],
+                   ['1', '1', '1', '1', '1'],
+                   ['1', '1', '1', '1', '1'],
+                   ['1', '1', '1', '1', '1']]
+    bg_array = [['black', 'black', 'black', 'black', 'black'],
+                ['black', 'black', 'black', 'black', 'black'],
+                ['black', 'black', 'black', 'black', 'black'],
+                ['black', 'black', 'black', 'black', 'black'],
+                ['black', 'black', 'black', 'black', 'black'],
+                ['black', 'black', 'black', 'black', 'black']]
+    kb_click = {'q': {"x": range(2, 36),
+                      "y": range(597, 633),
+                      "color": 'black'
+                      },
+                'w': {"x": range(37, 72),
+                      "y": range(597, 633),
+                      "color": 'black'
+                      },
+                'e': {"x": range(73, 108),
+                      "y": range(597, 633),
+                      "color": 'black'
+                      },
+                'r': {"x": range(109, 144),
+                      "y": range(597, 633),
+                      "color": 'black'
+                      },
+                't': {"x": range(145, 180),
+                      "y": range(597, 633),
+                      "color": 'black'
+                      },
+                'y': {"x": range(181, 216),
+                      "y": range(597, 633),
+                      "color": 'black'
+                      },
+                'u': {"x": range(217, 252),
+                      "y": range(597, 633),
+                      "color": 'black'
+                      },
+                'i': {"x": range(253, 288),
+                      "y": range(597, 633),
+                      "color": 'black'
+                      },
+                'o': {"x": range(289, 324),
+                      "y": range(597, 633),
+                      "color": 'black'
+                      },
+                'p': {"x": range(325, 359),
+                      "y": range(597, 633),
+                      "color": 'black'
+                      },
+                'a': {"x": range(20, 53),
+                      "y": range(636, 672),
+                      "color": 'black'
+                      },
+                's': {"x": range(54, 89),
+                      "y": range(636, 672),
+                      "color": 'black'
+                      },
+                'd': {"x": range(90, 125),
+                      "y": range(636, 672),
+                      "color": 'black'
+                      },
+                'f': {"x": range(126, 161),
+                      "y": range(636, 672),
+                      "color": 'black'
+                      },
+                'g': {"x": range(162, 197),
+                      "y": range(636, 672),
+                      "color": 'black'
+                      },
+                'h': {"x": range(198, 233),
+                      "y": range(636, 672),
+                      "color": 'black'
+                      },
+                'j': {"x": range(234, 269),
+                      "y": range(636, 672),
+                      "color": 'black'
+                      },
+                'k': {"x": range(270, 305),
+                      "y": range(636, 672),
+                      "color": 'black'
+                      },
+                'l': {"x": range(306, 342),
+                      "y": range(636, 672),
+                      "color": 'black'
+                      },
+                'z': {"x": range(56, 89),
+                      "y": range(675, 710),
+                      "color": 'black'
+                      },
+                'x': {"x": range(90, 125),
+                      "y": range(675, 710),
+                      "color": 'black'
+                      },
+                'c': {"x": range(126, 161),
+                      "y": range(675, 710),
+                      "color": 'black'
+                      },
+                'v': {"x": range(162, 197),
+                      "y": range(675, 710),
+                      "color": 'black'
+                      },
+                'b': {"x": range(198, 233),
+                      "y": range(675, 710),
+                      "color": 'black'
+                      },
+                'n': {"x": range(234, 269),
+                      "y": range(675, 710),
+                      "color": 'black'
+                      },
+                'm': {"x": range(270, 305),
+                      "y": range(675, 710),
+                      "color": 'black'
+                      },
+                '>': {"x": range(305, 356),
+                      "y": range(716, 752),
+                      "color": 'black'
+                      },
+                '<': {"x": range(305, 356),
+                      "y": range(675, 710),
+                      "color": 'black'
+                      }
+                }
+    screen.blit(bgImage, (0, 0))
+ 
+ 
+def game_loop():
+    global guess_array, current_letter, current_row, answer, word_list, bigger_word_list, win_flag, lose_flag
+    # LISTEN FOR KEYBOARD INPUT
+    if keyboard_input():
+        print(guess_array)
+        key = keyboard_input()
+        # ENTER BUTTON LOGIC
+        if key == '>':
+            check_input = ''.join(guess_array[current_row])
+            if check_input in bigger_word_list:
+                check_answer()
+                for i in guess_array:
+                    if i == answer:
+                        win_flag = True
+                        tada.play()
+                current_letter = 0
+                if current_row < 5:
+                    current_row += 1
+                elif guess_array[current_row] == answer:
+                    win_flag = True
+                    tada.play()
+                else:
+                    lose_flag = True
+                    sad_trombone.play()
+            else:
+                not_in_wordlist()
+ 
+ 
+        # BACKSPACE BUTTON LOGIC
+        elif key == '<':
+            if 4 > current_letter > 0:
+                current_letter -= 1
+                guess_array[current_row][current_letter] = '1'
+            elif current_letter == 4:
+                if guess_array[current_row][current_letter] == '1':
+                    current_letter -= 1
+                guess_array[current_row][current_letter] = '1'
+        # PRINT LETTERS ON CURRENT LINE
+        elif current_letter in range(0, 5):
+            guess_array[current_row][current_letter] = key
+            current_letter += 1
+            if current_letter == 5:
+                current_letter = 4
+ 
+ 
+# DEFINE AND INIT VARIABLES
+screenWidth, screenHeight = 360, 800
+bg_coord_x, bg_coord_y = [37, 95, 153, 211, 269], [172, 233, 294, 355, 416, 477]
+current_letter, current_row = 0, 0
+black, yellow, green, gray = (26, 28, 28), (255, 255, 0), (0, 128, 0), (170, 170, 170)
+mouse, word_list, bigger_word_list = [], [], []
+pygame.font.init()
+pygame.mixer.init()
+myFont = pygame.font.Font("Product Sans Bold.ttf", 11)
+answer = list(get_word())
+game_open, seconds_counter, drawing_board, win_flag, lose_flag = True, False, True, False, False
+seconds = 0
+screen = pygame.display.set_mode((screenWidth, screenHeight))
+pygame_icon = pygame.image.load('files\\wordle.png')
+key_sound = pygame.mixer.Sound('keypress.mp3')
+sad_trombone = pygame.mixer.Sound('sadtrombone.mp3')
+tada = pygame.mixer.Sound('tada.mp3')
+pygame.display.set_icon(pygame_icon)
+pygame.display.set_caption('Wordle of Warcraft')
+bgImage = pygame.transform.scale(pygame.image.load('bg.png'), (screenWidth, screenHeight))
+screen.blit(bgImage, (0, 0))
+guess_array = [['1', '1', '1', '1', '1'],
+               ['1', '1', '1', '1', '1'],
+               ['1', '1', '1', '1', '1'],
+               ['1', '1', '1', '1', '1'],
+               ['1', '1', '1', '1', '1'],
+               ['1', '1', '1', '1', '1']]
+bg_array = [['black', 'black', 'black', 'black', 'black'],
+            ['black', 'black', 'black', 'black', 'black'],
+            ['black', 'black', 'black', 'black', 'black'],
+            ['black', 'black', 'black', 'black', 'black'],
+            ['black', 'black', 'black', 'black', 'black'],
+            ['black', 'black', 'black', 'black', 'black']]
+kb_click = {'q': {"x": range(2, 36),
+                  "y": range(597, 633),
+                  "color" : 'black'
+                  },
+            'w': {"x": range(37, 72),
+                  "y": range(597, 633),
+                  "color" : 'black'
+                  },
+            'e': {"x": range(73, 108),
+                  "y": range(597, 633),
+                  "color" : 'black'
+                  },
+            'r': {"x": range(109, 144),
+                  "y": range(597, 633),
+                  "color" : 'black'
+                  },
+            't': {"x": range(145, 180),
+                  "y": range(597, 633),
+                  "color" : 'black'
+                  },
+            'y': {"x": range(181, 216),
+                  "y": range(597, 633),
+                  "color" : 'black'
+                  },
+            'u': {"x": range(217, 252),
+                  "y": range(597, 633),
+                  "color" : 'black'
+                  },
+            'i': {"x": range(253, 288),
+                  "y": range(597, 633),
+                  "color" : 'black'
+                  },
+            'o': {"x": range(289, 324),
+                  "y": range(597, 633),
+                  "color" : 'black'
+                  },
+            'p': {"x": range(325, 359),
+                  "y": range(597, 633),
+                  "color" : 'black'
+                  },
+            'a': {"x": range(20, 53),
+                  "y": range(636, 672),
+                  "color" : 'black'
+                  },
+            's': {"x": range(54, 89),
+                  "y": range(636, 672),
+                  "color" : 'black'
+                  },
+            'd': {"x": range(90, 125),
+                  "y": range(636, 672),
+                  "color" : 'black'
+                  },
+            'f': {"x": range(126, 161),
+                  "y": range(636, 672),
+                  "color" : 'black'
+                  },
+            'g': {"x": range(162, 197),
+                  "y": range(636, 672),
+                  "color" : 'black'
+                  },
+            'h': {"x": range(198, 233),
+                  "y": range(636, 672),
+                  "color" : 'black'
+                  },
+            'j': {"x": range(234, 269),
+                  "y": range(636, 672),
+                  "color" : 'black'
+                  },
+            'k': {"x": range(270, 305),
+                  "y": range(636, 672),
+                  "color" : 'black'
+                  },
+            'l': {"x": range(306, 342),
+                  "y": range(636, 672),
+                  "color" : 'black'
+                  },
+            'z': {"x": range(56, 89),
+                  "y": range(675, 710),
+                  "color" : 'black'
+                  },
+            'x': {"x": range(90, 125),
+                  "y": range(675, 710),
+                  "color" : 'black'
+                  },
+            'c': {"x": range(126, 161),
+                  "y": range(675, 710),
+                  "color" : 'black'
+                  },
+            'v': {"x": range(162, 197),
+                  "y": range(675, 710),
+                  "color" : 'black'
+                  },
+            'b': {"x": range(198, 233),
+                  "y": range(675, 710),
+                  "color" : 'black'
+                  },
+            'n': {"x": range(234, 269),
+                  "y": range(675, 710),
+                  "color" : 'black'
+                  },
+            'm': {"x": range(270, 305),
+                  "y": range(675, 710),
+                  "color" : 'black'
+                  },
+            '>': {"x": range(305, 356),
+                  "y": range(716, 752),
+                  "color" : 'black'
+                  },
+            '<': {"x": range(305, 356),
+                  "y": range(675, 710),
+                  "color" : 'black'
+                  }
+            }
+ 
+# GAME LOOP
+while game_open:
+    # EVENT LISTENER
+    for event in pygame.event.get():
+        #print(answer)
+        game_time()
+        game_loop()
+        print_pieces()
+        help_box_check()
+        pygame.display.update()
+        win_check()
+        lose_check()
+        # LISTEN FOR QUIT
+        if event.type == pygame.QUIT:
+            game_open = False
+
