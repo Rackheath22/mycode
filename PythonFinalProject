@@ -22,7 +22,7 @@ lakes = [
 	"Species": ["Trout", 
     },
     {
-	"name": "Black Lake",
+	"name": "Chambers Lake",
 	"MotorBoat": ["yes", "no"],
 	"BoatLaunch": ["yes", "no"],
 	"TwoPole": ["yes", "no"],
@@ -31,7 +31,7 @@ lakes = [
 	"Species": ["Trout", 
     },
     {
-	"name": "Black Lake",
+	"name": "Clear Lake",
 	"MotorBoat": ["yes", "no"],
 	"BoatLaunch": ["yes", "no"],
 	"TwoPole": ["yes", "no"],
@@ -40,7 +40,7 @@ lakes = [
 	"Species": ["Trout", 
     },
     {
-	"name": "Black Lake",
+	"name": "Deep Lake",
 	"MotorBoat": ["yes", "no"],
 	"BoatLaunch": ["yes", "no"],
 	"TwoPole": ["yes", "no"],
@@ -49,7 +49,7 @@ lakes = [
 	"Species": ["Trout", 
     },
     {
-	"name": "Black Lake",
+	"name": "Hicks Lake",
 	"MotorBoat": ["yes", "no"],
 	"BoatLaunch": ["yes", "no"],
 	"TwoPole": ["yes", "no"],
@@ -58,7 +58,7 @@ lakes = [
 	"Species": ["Trout", 
     },
     {
-	"name": "Black Lake",
+	"name": "Lake Lawrence",
 	"MotorBoat": ["yes", "no"],
 	"BoatLaunch": ["yes", "no"],
 	"TwoPole": ["yes", "no"],
@@ -67,7 +67,7 @@ lakes = [
 	"Species": ["Trout", 
     },
     {   
-	"name": "Black Lake",
+	"name": "Long Lake",
 	"MotorBoat": ["yes", "no"],
 	"BoatLaunch": ["yes", "no"],
 	"TwoPole": ["yes", "no"],
@@ -76,7 +76,7 @@ lakes = [
 	"Species": ["Trout", 
     },
     {
-	"name": "Black Lake",
+	"name": "McIntosh Lake",
 	"MotorBoat": ["yes", "no"],
 	"BoatLaunch": ["yes", "no"],
 	"TwoPole": ["yes", "no"],
@@ -85,7 +85,7 @@ lakes = [
 	"Species": ["Trout", 
     },
     {
-	"name": "Black Lake",
+	"name": "Munn Lake",
 	"MotorBoat": ["yes", "no"],
 	"BoatLaunch": ["yes", "no"],
 	"TwoPole": ["yes", "no"],
@@ -94,7 +94,7 @@ lakes = [
 	"Species": ["Trout", 
     },
     {
-	"name": "Black Lake",
+	"name": "Offutt Lake",
 	"MotorBoat": ["yes", "no"],
 	"BoatLaunch": ["yes", "no"],
 	"TwoPole": ["yes", "no"],
@@ -103,7 +103,7 @@ lakes = [
 	"Species": ["Trout", 
     },
     {
-	"name": "Black Lake",
+	"name": "Pattison Lake",
 	"MotorBoat": ["yes", "no"],
 	"BoatLaunch": ["yes", "no"],
 	"TwoPole": ["yes", "no"],
@@ -112,7 +112,7 @@ lakes = [
 	"Species": ["Trout", 
     },
     {
-	"name": "Black Lake",
+	"name": "St. Clair Lake",
 	"MotorBoat": ["yes", "no"],
 	"BoatLaunch": ["yes", "no"],
 	"TwoPole": ["yes", "no"],
@@ -121,7 +121,7 @@ lakes = [
 	"Species": ["Trout", 
     },
     {
-	"name": "Black Lake",
+	"name": "Summit Lake",
 	"MotorBoat": ["yes", "no"],
 	"BoatLaunch": ["yes", "no"],
 	"TwoPole": ["yes", "no"],
@@ -130,7 +130,7 @@ lakes = [
 	"Species": ["Trout", 
     },
     {
-	"name": "Black Lake",
+	"name": "Ward Lake",
 	"MotorBoat": ["yes", "no"],
 	"BoatLaunch": ["yes", "no"],
 	"TwoPole": ["yes", "no"],
