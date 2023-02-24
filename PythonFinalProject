@@ -1,0 +1,173 @@
+#!/usr/bin/env python3
+
+"""
+Author: JWPettis
+
+This program suggests lowland lakes available for recreational sport fishing in Thurston County, WA
+based on user input.
+"""
+
+# Print the user welcome message
+print("Welcome to the Thurston County Lake Finder Utility")
+
+# Define a list of dictionaries with information about different fishing lakes
+lakes = [
+    {
+        "name": "Black Lake",
+        "MotorBoat": ["yes", "no"],
+	    "BoatLaunch": ["yes", "no"],
+	    "TwoPole": ["yes", "no"],
+        "PvtResort": ["yes", "no"],
+        "AllYear": ["yes", "no"],
+	    "Species": ["Trout", 
+    },
+    {
+        "name": "Chambers Lake",
+        "MotorBoat": ["yes", "no"],
+	    "BoatLaunch": ["yes", "no"],
+	    "TwoPole": ["yes", "no"],
+        "PvtResort": ["yes", "no"],
+        "AllYear": ["yes", "no"],
+	    "Species": ["Trout", 
+    },
+    {
+        "name": "Clear Lake",
+        "MotorBoat": ["yes", "no"],
+	    "BoatLaunch": ["yes", "no"],
+	    "TwoPole": ["yes", "no"],
+        "PvtResort": ["yes", "no"],
+        "AllYear": ["yes", "no"],
+	    "Species": ["Trout", 
+    },
+    {
+        "name": "Deep Lake",
+        "MotorBoat": ["yes", "no"],
+	    "BoatLaunch": ["yes", "no"],
+	    "TwoPole": ["yes", "no"],
+        "PvtResort": ["yes", "no"],
+        "AllYear": ["yes", "no"],
+	    "Species": ["Trout", 
+    },
+    {
+	    "name": "Hicks Lake"
+        "MotorBoat": ["yes", "no"],
+	    "BoatLaunch": ["yes", "no"],
+	    "TwoPole": ["yes", "no"],
+        "PvtResort": ["yes", "no"],
+        "AllYear": ["yes", "no"],
+	    "Species": ["Trout", 
+    },
+    {
+ 	    "name": "Lake Lawrence"
+        "MotorBoat": ["yes", "no"],
+	    "BoatLaunch": ["yes", "no"],
+	    "TwoPole": ["yes", "no"],
+        "PvtResort": ["yes", "no"],
+        "AllYear": ["yes", "no"],
+	    "Species": ["Trout", 
+    },
+    {   
+        "name": "Long Lake"
+        "MotorBoat": ["yes", "no"],
+	    "BoatLaunch": ["yes", "no"],
+	    "TwoPole": ["yes", "no"],
+        "PvtResort": ["yes", "no"],
+        "AllYear": ["yes", "no"],
+	    "Species": ["Trout", 
+    },
+    {
+        "name": "McIntosh Lake"
+        "MotorBoat": ["yes", "no"],
+	    "BoatLaunch": ["yes", "no"],
+	    "TwoPole": ["yes", "no"],
+        "PvtResort": ["yes", "no"],
+        "AllYear": ["yes", "no"],
+	    "Species": ["Trout", 
+    },
+    {
+        "name": "Munn Lake"
+        "MotorBoat": ["yes", "no"],
+	    "BoatLaunch": ["yes", "no"],
+	    "TwoPole": ["yes", "no"],
+        "PvtResort": ["yes", "no"],
+        "AllYear": ["yes", "no"],
+	    "Species": ["Trout", 
+    },
+    {
+        "name": "Offutt Lake"
+        "MotorBoat": ["yes", "no"],
+	    "BoatLaunch": ["yes", "no"],
+	    "TwoPole": ["yes", "no"],
+        "PvtResort": ["yes", "no"],
+        "AllYear": ["yes", "no"],
+	    "Species": ["Trout", 
+    },
+    {
+        "name": "Pattison Lake"
+        "MotorBoat": ["yes", "no"],
+	    "BoatLaunch": ["yes", "no"],
+	    "TwoPole": ["yes", "no"],
+        "PvtResort": ["yes", "no"],
+        "AllYear": ["yes", "no"],
+	    "Species": ["Trout", 
+    },
+    {
+        "name": "St. Clair Lake"
+        "MotorBoat": ["yes", "no"],
+	    "BoatLaunch": ["yes", "no"],
+	    "TwoPole": ["yes", "no"],
+        "PvtResort": ["yes", "no"],
+        "AllYear": ["yes", "no"],
+	    "Species": ["Trout", 
+    },
+    {
+        "name": "Summit Lake"
+        "MotorBoat": ["yes", "no"],
+	    "BoatLaunch": ["yes", "no"],
+	    "TwoPole": ["yes", "no"],
+        "PvtResort": ["yes", "no"],
+        "AllYear": ["yes", "no"],
+	    "Species": ["Trout", 
+    },
+    {
+        "name": "Ward Lake"
+        "MotorBoat": ["yes", "no"],
+	    "BoatLaunch": ["yes", "no"],
+	    "TwoPole": ["yes", "no"],
+        "PvtResort": ["yes", "no"],
+        "AllYear": ["yes", "no"],
+	    "Species": ["Trout", 
+]
+
+# Define a function to ask the user a question and return their answer
+def ask_question(question):
+    return input(question + " ")
+
+# Ask the user six questions
+print("Answer the following questions to receive a fishing lake suggestion.")
+MotorBoat = ask_question("Do you want to fish with a boat powered by a combustion engine?")
+BoatLaunch = ask_question("Do you want to fish at a lake with a WDFW boat launch?")
+TwoPole ask_question("Do you want to fish with two poles?")
+PvtResort = ask_question("Do you want to fish at a lake with a private resort?")
+AllYear = ask_question("Do you want to fish at a lake that is open all year?")
+
+# Define a function to filter the list of lakes based on the user's answers
+def filter_lakes(MotorBoat, BoatLaunch, TwoPole, PvtResort, AllYear):
+    filtered_lakes = []
+    for lake in lakes:
+        if MotorBoat.lower() in lake["MotorBoat"].lower() and BoatLaunch.lower() in [x.lower() for x in lake["Species"]] and TwoPole.lower() in lake["TwoPole"].lower() and PvtResort.lower() in lake ["PvtResort"] and AllYear.lower() in ["AllYear"]:
+            filtered_lakes.append(lake)
+    return filtered_lakes
+
+# Filter the list of lakes based on the user's answers
+filtered_lakes = filter_lakes(MotorBoat, BoatLaunch, TwoPole, PvtResort, AllYear, Species)
+
+# Display the suggestions to the user
+if len(filtered_lakes) == 0:
+    print("Sorry, we could not find any suitable lakes for you.")
+else:
+    print("Based on your answers, we suggest the following lakes:")
+    for lake in filtered_lakes:
+        print("- " + lake["name"])
+
+
