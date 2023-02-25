@@ -13,130 +13,117 @@ print("Welcome to the Thurston County Lake Finder Utility")
 # Define a list of dictionaries with information about different fishing lakes
 lakes = [
     {
-	"name": "Black Lake",
-	"MotorBoat": ["yes", "no"],
-	"BoatLaunch": ["yes", "no"],
-	"TwoPole": ["yes", "no"],
-        "PvtResort": ["yes", "no"],
-        "AllYear": ["yes", "no"],
-	"Species": ["Trout", 
+        "name": "Black Lake",
+        "MotorBoat": "yes",
+	"BoatLaunch": "yes",
+	"TwoPole": "yes",
+        "PvtResort": "yes",
+        "AllYear": "yes",
+	},
+    {
+        "name": "Chambers Lake",
+        "MotorBoat": "no",
+	"BoatLaunch": "yes",
+	"TwoPole": "yes",
+        "PvtResort": "no"
+        "AllYear": "yes"
     },
     {
-	"name": "Chambers Lake",
-	"MotorBoat": ["yes", "no"],
-	"BoatLaunch": ["yes", "no"],
-	"TwoPole": ["yes", "no"],
-        "PvtResort": ["yes", "no"],
-        "AllYear": ["yes", "no"],
-	"Species": ["Trout", 
+        "name": "Clear Lake"
+        "MotorBoat": "yes"
+	"BoatLaunch": "yes"
+	"TwoPole": "yes"
+        "PvtResort": "no"
+        "AllYear": "no"
     },
     {
-	"name": "Clear Lake",
-	"MotorBoat": ["yes", "no"],
-	"BoatLaunch": ["yes", "no"],
-	"TwoPole": ["yes", "no"],
-        "PvtResort": ["yes", "no"],
-        "AllYear": ["yes", "no"],
-	"Species": ["Trout", 
+        "name": "Deep Lake",
+        "MotorBoat": "no",
+	"BoatLaunch": "yes",
+	"TwoPole": "yes",
+        "PvtResort": "no",
+        "AllYear": "yes",
     },
     {
-	"name": "Deep Lake",
-	"MotorBoat": ["yes", "no"],
-	"BoatLaunch": ["yes", "no"],
-	"TwoPole": ["yes", "no"],
-        "PvtResort": ["yes", "no"],
-        "AllYear": ["yes", "no"],
-	"Species": ["Trout", 
+	"name": "Hicks Lake"
+        "MotorBoat": "yes",
+	"BoatLaunch": "yes",
+	"TwoPole": "yes",
+        "PvtResort": "no",
+        "AllYear": "no"
     },
     {
-	"name": "Hicks Lake",
-	"MotorBoat": ["yes", "no"],
-	"BoatLaunch": ["yes", "no"],
-	"TwoPole": ["yes", "no"],
-        "PvtResort": ["yes", "no"],
-        "AllYear": ["yes", "no"],
-	"Species": ["Trout", 
-    },
-    {
-	"name": "Lake Lawrence",
-	"MotorBoat": ["yes", "no"],
-	"BoatLaunch": ["yes", "no"],
-	"TwoPole": ["yes", "no"],
-        "PvtResort": ["yes", "no"],
-        "AllYear": ["yes", "no"],
-	"Species": ["Trout", 
+ 	"name": "Lake Lawrence"
+        "MotorBoat": "yes",
+	"BoatLaunch": "yes",
+	"TwoPole": "yes",
+        "PvtResort": "no",
+        "AllYear": "yes",
     },
     {   
-	"name": "Long Lake",
-	"MotorBoat": ["yes", "no"],
-	"BoatLaunch": ["yes", "no"],
-	"TwoPole": ["yes", "no"],
-        "PvtResort": ["yes", "no"],
-        "AllYear": ["yes", "no"],
-	"Species": ["Trout", 
+        "name": "Long Lake"
+        "MotorBoat": "yes",
+	"BoatLaunch": "yes",
+	"TwoPole": "yes",
+        "PvtResort": "no",
+        "AllYear": "yes",
     },
     {
-	"name": "McIntosh Lake",
-	"MotorBoat": ["yes", "no"],
-	"BoatLaunch": ["yes", "no"],
-	"TwoPole": ["yes", "no"],
-        "PvtResort": ["yes", "no"],
-        "AllYear": ["yes", "no"],
-	"Species": ["Trout", 
+        "name": "McIntosh Lake"
+        "MotorBoat": "yes",
+	"BoatLaunch": "yes",
+	"TwoPole": "yes",
+        "PvtResort": "no",
+        "AllYear": "yes",
     },
     {
-	"name": "Munn Lake",
-	"MotorBoat": ["yes", "no"],
-	"BoatLaunch": ["yes", "no"],
-	"TwoPole": ["yes", "no"],
-        "PvtResort": ["yes", "no"],
-        "AllYear": ["yes", "no"],
-	"Species": ["Trout", 
+        "name": "Munn Lake"
+        "MotorBoat": "no",
+	"BoatLaunch": "yes",
+	"TwoPole": "no",
+        "PvtResort": "no",
+        "AllYear": "yes",
     },
     {
-	"name": "Offutt Lake",
-	"MotorBoat": ["yes", "no"],
-	"BoatLaunch": ["yes", "no"],
-	"TwoPole": ["yes", "no"],
-        "PvtResort": ["yes", "no"],
-        "AllYear": ["yes", "no"],
-	"Species": ["Trout", 
+        "name": "Offutt Lake"
+        "MotorBoat": "yes",
+	"BoatLaunch": "yes",
+	"TwoPole": "yes",
+        "PvtResort": "yes",
+        "AllYear": "yes",
     },
     {
-	"name": "Pattison Lake",
-	"MotorBoat": ["yes", "no"],
-	"BoatLaunch": ["yes", "no"],
-	"TwoPole": ["yes", "no"],
-        "PvtResort": ["yes", "no"],
-        "AllYear": ["yes", "no"],
-	"Species": ["Trout", 
+        "name": "Pattison Lake"
+        "MotorBoat": "yes",
+	"BoatLaunch": "yes",
+	"TwoPole": "yes",
+        "PvtResort": "no",
+        "AllYear": "yes",
     },
     {
-	"name": "St. Clair Lake",
-	"MotorBoat": ["yes", "no"],
-	"BoatLaunch": ["yes", "no"],
-	"TwoPole": ["yes", "no"],
-        "PvtResort": ["yes", "no"],
-        "AllYear": ["yes", "no"],
-	"Species": ["Trout", 
+        "name": "St. Clair Lake"
+        "MotorBoat": "yes",
+	"BoatLaunch": "yes",
+	"TwoPole": "yes",
+        "PvtResort": "no",
+        "AllYear": "yes",
     },
     {
-	"name": "Summit Lake",
-	"MotorBoat": ["yes", "no"],
-	"BoatLaunch": ["yes", "no"],
-	"TwoPole": ["yes", "no"],
+        "name": "Summit Lake"
+        "MotorBoat": "yes",
+	"BoatLaunch": "yes",
+	"TwoPole": "yes",
         "PvtResort": ["yes", "no"],
-        "AllYear": ["yes", "no"],
-	"Species": ["Trout", 
+        "AllYear": "no",
     },
     {
-	"name": "Ward Lake",
-	"MotorBoat": ["yes", "no"],
-	"BoatLaunch": ["yes", "no"],
-	"TwoPole": ["yes", "no"],
-        "PvtResort": ["yes", "no"],
-        "AllYear": ["yes", "no"],
-	"Species": ["Trout", 
+        "name": "Ward Lake"
+        "MotorBoat": "yes",
+	"BoatLaunch": "yes",
+	"TwoPole": "yes",
+        "PvtResort": "no",
+        "AllYear": "yes",
+	},
 ]
 
 # Define a function to ask the user a question and return their answer
@@ -147,7 +134,7 @@ def ask_question(question):
 print("Answer the following questions to receive a fishing lake suggestion.")
 MotorBoat = ask_question("Do you want to fish with a boat powered by a combustion engine?")
 BoatLaunch = ask_question("Do you want to fish at a lake with a WDFW boat launch?")
-TwoPole ask_question("Do you want to fish with two poles?")
+TwoPole = ask_question("Do you want to fish with two poles?")
 PvtResort = ask_question("Do you want to fish at a lake with a private resort?")
 AllYear = ask_question("Do you want to fish at a lake that is open all year?")
 
@@ -155,12 +142,12 @@ AllYear = ask_question("Do you want to fish at a lake that is open all year?")
 def filter_lakes(MotorBoat, BoatLaunch, TwoPole, PvtResort, AllYear):
     filtered_lakes = []
     for lake in lakes:
-        if MotorBoat.lower() in lake["MotorBoat"].lower() and BoatLaunch.lower() in [x.lower() for x in lake["Species"]] and TwoPole.lower() in lake["TwoPole"].lower() and PvtResort.lower() in lake ["PvtResort"] and AllYear.lower() in ["AllYear"]:
+        if MotorBoat.lower() in lake["MotorBoat"].lower() and BoatLaunch.lower() in lake["BoatLaunch"].lower() and TwoPole.lower() in lake["TwoPole"].lower() and PvtResort.lower() in lake["PvtResort"].lower() and "AllYear".lower() in lake["AllYear"].lower:
             filtered_lakes.append(lake)
     return filtered_lakes
 
 # Filter the list of lakes based on the user's answers
-filtered_lakes = filter_lakes(MotorBoat, BoatLaunch, TwoPole, PvtResort, AllYear, Species)
+filtered_lakes = filter_lakes(MotorBoat, BoatLaunch, TwoPole, PvtResort, AllYear)
 
 # Display the suggestions to the user
 if len(filtered_lakes) == 0:
